@@ -18,14 +18,14 @@ jobs:
     name: Android (arm64-v8a)
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
         npm i
         sh ./android_armv8.sh ${{env.VERSION}}
         mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_9.4
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: v8_bin
         path: ~/v8/v8/output/**/*
@@ -34,14 +34,14 @@ jobs:
     name: Android (armeabi-v7a)
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
         npm i
         sh ./android_armv7.sh ${{env.VERSION}}
         mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_9.4
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: v8_bin
         path: ~/v8/v8/output/**/*
@@ -50,14 +50,14 @@ jobs:
     name: Android (x86_64)
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
         npm i
         sh ./android_x64.sh ${{env.VERSION}}
         mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_9.4
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: v8_bin
         path: ~/v8/v8/output/**/*
