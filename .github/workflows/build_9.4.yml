@@ -30,10 +30,25 @@ jobs:
         name: v8_bin
         path: ~/v8/v8/output/**/*
 
+  build_switch_arm_v8:
+    name: Switch (arm64-v8a)
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run build script
+      run: |
+        cd $GITHUB_WORKSPACE
+        npm i
+        sh ./switch_armv8.sh ${{env.VERSION}}
+        mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_9.4
+    - uses: actions/upload-artifact@v4
+      with:
+        name: v8_bin
+        path: ~/v8/v8/output/**/*
         
   publish:
     runs-on: ubuntu-20.04
-    needs: [build_android_arm_v8]
+    needs: [build_android_arm_v8,build_switch_arm_v8]
     steps:
       - uses: actions/download-artifact@v1
         with:
