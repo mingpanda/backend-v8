@@ -46,9 +46,29 @@ jobs:
         name: v8_bin
         path: ~/v8/v8/output/**/*
         
+  build_switch_arm_v8_windows:
+    name: Switch_Windows (arm64-v8a)
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run build script
+      shell: cmd
+      run: |
+        cd %GITHUB_WORKSPACE%
+        call .\switch_windows_armv8.cmd ${{env.VERSION}}
+    - uses: actions/upload-artifact@v4
+      with:
+        name: v8_bin
+        path: v8/v8/output/**/*
+        
+    - uses: actions/upload-artifact@v4
+      with:
+        name: v8_bin_win64
+        path: v8/v8/output/**/*
+        
   publish:
     runs-on: ubuntu-20.04
-    needs: [build_android_arm_v8,build_switch_arm_v8]
+    needs: [build_android_arm_v8,build_switch_arm_v8,build_switch_arm_v8_windows]
     steps:
       - uses: actions/download-artifact@v4
         with:
